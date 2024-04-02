@@ -1,7 +1,7 @@
 ---
 title: “山东大学移动互联网开发技术教学网站建设”项目实训日志
 date: 2021-05-16
-tags: 阅读
+tags: 安卓开发
 ---
 
 ## 1. 日志一
@@ -1247,9 +1247,9 @@ vibrator = (Vibrator)this.getSystemService(this.VIBRATOR_SERVICE);
 目录分为：前言（包括网站的适用对象，网站内容和使用说明），Android简介（包括Android简介，Android特性，Android架构），环境搭建（包括Android Studio安装配置和初步认识开发工具），案例教学（包括之前所开发的十个案例app的详细教学），核心主题（包括Android重点知识点）
 - 具体页面：
 
-![alt text](37.jpg)
-![alt text](38.jpg)
-![alt text](39.jpg)
+![alt text](37.png)
+![alt text](38.png)
+![alt text](39.png)
 
 
 环境搭建与核心主题视觉稿与案例教学相同。
@@ -1278,7 +1278,7 @@ vibrator = (Vibrator)this.getSystemService(this.VIBRATOR_SERVICE);
 
 ​	完成详细案例教学并写好对应网页
 
-![alt text](40.jpg)
+![alt text](40.png)
 
 ---
 
@@ -1330,7 +1330,7 @@ vibrator = (Vibrator)this.getSystemService(this.VIBRATOR_SERVICE);
 
 ​		Docker是世界领先的软件容器平台。Docker属于操作系统层面的虚拟化技术，由于隔离的进程独立于宿主和其它的隔离的进程，因此也称其为容器。
 
-![alt text](41.jpg)
+![alt text](41.png)
 
 
 
@@ -1364,7 +1364,7 @@ vibrator = (Vibrator)this.getSystemService(this.VIBRATOR_SERVICE);
 
 ​		参考：[https://www.cnblogs.com/Nick-Hu/p/8435602.html](https://www.cnblogs.com/Nick-Hu/p/8435602.html)
 
-![alt text](42.jpg)
+![alt text](42.png)
 
 ##### 安装配置 VNC Server：
 
@@ -1379,7 +1379,7 @@ vibrator = (Vibrator)this.getSystemService(this.VIBRATOR_SERVICE);
 
 ##### 在vnc viewer里查看：
 
-![alt text](43.jpg)
+![alt text](43.png)
 
 
 ## 总结
