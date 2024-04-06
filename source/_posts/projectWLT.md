@@ -222,4 +222,51 @@ const handelPageChange = async (val) => {
 ></video>
 ```
 
-7.
+7. `echarts` 图表绘制
+
+- 学会基础的使用
+
+```vue
+<template>
+  <div style="width: 60vw; height: 60vh" id="container"></div>
+</template>
+<script setup>
+// 按需引入，减少包体积
+import { BarChart } from "echarts/charts";
+import { GridComponent } from "echarts/components";
+import * as echarts from "echarts/core";
+import { CanvasRenderer } from "echarts/renderers";
+import { onMounted } from "vue";
+echarts.use([GridComponent, BarChart, CanvasRenderer]);
+var option = {
+  title: {
+    text: "ECharts 入门示例",
+  },
+  tooltip: {},
+  legend: {
+    data: ["销量"],
+  },
+  xAxis: {
+    data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"],
+  },
+  yAxis: {},
+  series: [
+    {
+      name: "销量",
+      type: "bar",
+      data: [5, 20, 36, 10, 10, 20],
+    },
+  ],
+};
+function fetchData() {
+  var myChart = echarts.init(document.getElementById("container"));
+  myChart.setOption(option);
+}
+onMounted(() => {
+  console.log("onMounted");
+  fetchData();
+});
+</script>
+```
+
+8. 原生 `html5` 和 `css3` 来实现定制化表格
