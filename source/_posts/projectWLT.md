@@ -270,3 +270,113 @@ onMounted(() => {
 ```
 
 8. 原生 `html5` 和 `css3` 来实现定制化表格
+
+![Alt text](table.png)
+
+- `flex`布局 + `justify-content: space-between;` 来划分各部分
+
+```vue
+<template>
+  <div class="br-15"
+  style="height: 40px; background-color: rgb(207, 231, 210); display: flex; align-items: center; justify-content: space-between; box-sizing: border-box; padding: 0 15px;">
+    <div class="horizontal-center" style="width: 12.5%;">
+    <!-- 保持表头和内容对应的width相同 -->
+  </div>
+</template>
+```
+
+- 实现 设置置顶
+
+```vue
+<template>
+  <div class="horizontal-center push-box" style="width: 12.5%;"
+    @click="updatePush('轮播图', course.courseId, carousels.includes(course.courseId))">
+    <!-- 判断是否在已选中的数组里，从而决定透明度 -->
+      <img class="push" src="/img/course/course-swap.svg" alt=""
+          :style="{ opacity: carousels.includes(course.courseId) ? 1 : 0 }">
+  </div>
+</template>
+<style>
+/* 悬浮时0.5的透明度 */
+.push-box:hover>.push {
+    opacity: 0.5 !important;
+}
+</style>
+<script>
+const updatePush = async (type, id, status) => {
+  // 进行选中，判断是否到达上限
+    if (status == false) {
+        if (type == "轮播图" && carousels.value.length >= 5) {
+            ElMessage.error("轮播图数量已达上限！")
+            return
+        }
+        if (type == "精选推送" && featureds.value.length >= 3) {
+            ElMessage.error("精选推送数量已达上限！")
+            return
+        }
+        await addPushXhr(type, id)
+    } else {
+      // 进行撤销
+        const pushIds = await getPushIdXhr(type, id)
+        if (pushIds == null) {
+            ElMessage.error("撤销过程发生异常！")
+            return;
+        }
+        pushIds.forEach(async pushId => {
+            await deletePushXhr(pushId)
+        });
+    }
+    // 重新更新script中的数组
+    getFeatureds()
+    getCarousels()
+}
+</script>
+```
+
+- 预览课程：直接 `window.open(uri);` 跳转到前台来实现，`preview`参数在前台进行读取，确保不可进行交互操作
+
+```vue
+<script>
+const previvew_course = (id) =>{
+    let uri = preview_prefix_url.value + `/class/info?courseId=${id}&preview=true`;
+    window.open(uri);
+}
+</script>
+```
+
+- 增/改课程的弹窗：`el-dialog` 包装，再在内部嵌入内容
+
+```vue
+<template>
+  <el-dialog v-model="dialogVisible" title="添加课程" width="50%" draggable>
+      <div>
+          <AddCourseDialog :addSusses="addSusses" />
+      </div>
+  </el-dialog>
+  <el-dialog v-model="edition" title="修改课程" width="50%" destroy-on-close>
+      <div>
+          <EditCourseDialog :data="courseList[nowEditId]" :addSusses="editSusses" />
+      </div>
+  </el-dialog>
+</template>
+```
+
+9. 侧栏切换
+
+- 使用 `pinia` 进行状态管理，跨页面/组件共享侧栏状态
+
+```vue
+<script>
+import { storeToRefs } from "pinia";
+const { isUnfold } = storeToRefs(courseStore);
+</script>
+<template>
+<!-- index.vue中的主侧栏 -->
+<div style="width: 230px; box-sizing: border-box;" class="flex-column pad-20"  v-if="! isUnfold">
+  <Sidebar />
+</div>
+<!-- 特殊页面的副侧栏 -->
+<div style="width: 230px; margin-right: 20px; " class="flex-column" v-if="isUnfold">
+</div>
+</template>
+```
